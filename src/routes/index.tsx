@@ -6,6 +6,7 @@ import Login from "../views/auth/login"
 import Layout from "../components/Layout"
 import Dashboard from "../views/admin/dashboard"
 import UserPage from "../views/admin/user"
+import BranchPage from "../views/admin/branch"
 
 export default function AppRoutes() {
   const auth = useContext(AuthContext)
@@ -44,6 +45,9 @@ export default function AppRoutes() {
 
         <Route path="users">
           <Route index element={<UserPage />} />
+        </Route>
+        <Route path="company">
+          <Route index element={<BranchPage />} />
         </Route>
 
       </Route>

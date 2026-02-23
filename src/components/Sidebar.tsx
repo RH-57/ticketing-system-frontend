@@ -1,4 +1,4 @@
-import { Home, User } from "lucide-react"
+import { Blocks, Home, User } from "lucide-react"
 import { FC, useEffect, useState } from "react"
 import { useAuthUser } from "../hooks/auth/useAuthUser"
 import { Link } from "react-router-dom"
@@ -85,6 +85,17 @@ const Sidebar: FC<SidebarProps> = ({ open, onClose }) => {
           >
             <User className="w-6 h-6" />
             {isExpanded && <span>User Management</span>}
+          </Link>
+
+          <Link
+            to="/admin/company"
+            onClick={onClose}
+            className={`flex items-center ${
+              isExpanded ? "gap-3 px-4" : "justify-center"
+            } py-2 rounded-lg hover:bg-gray-700`}
+          >
+            <Blocks className="w-6 h-6" />
+            {isExpanded && <span>Company</span>}
           </Link>
         </nav>
 

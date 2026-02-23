@@ -10,7 +10,12 @@ export interface UserDetail {
   email: string
   role: string
   is_active: boolean
-  // tambahkan field lain kalau ada
+}
+
+interface ApiResponse {
+  success: boolean
+  message: string
+  data: UserDetail
 }
 
 interface ApiErrorResponse {
@@ -23,15 +28,14 @@ const useUserById = (id: number | null, enabled: boolean = true) => {
     queryFn: async () => {
       const token = Cookies.get("token")
 
-      const response = await Api.get(`/api/users/${id}`, {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
+      const response = await Api.get<ApiResponse>(`/api/users/${id}`, {
+        headers: { Authorization: `Bearer ${token}` },
       })
 
-      return response.data
+      // 🔥 INI YANG PENTING
+      return response.data.data
     },
-    enabled: !!id && enabled, // hanya fetch kalau ada id
+    enabled: !!id && enabled,
   })
 }
 
