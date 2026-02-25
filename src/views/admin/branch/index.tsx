@@ -1,5 +1,5 @@
 import { FC, useState, useEffect } from "react"
-import { Plus, Building2, Pencil, Trash2 } from "lucide-react"
+import { Plus, Building2, Pencil, Trash2, ArrowLeft } from "lucide-react"
 import useBranches, { Branch } from "../../../hooks/branch/useBranches"
 import useBranchDelete from "../../../hooks/branch/useBranchDelete"
 import { useQueryClient } from "@tanstack/react-query"
@@ -7,6 +7,7 @@ import toast from "react-hot-toast"
 import ActionDropdown from "../../../components/ActionDropdown"
 import CreateBranchModal from "./create"
 import EditBranchModal from "./edit"
+import { useNavigate } from "react-router"
 
 const BranchPage: FC = () => {
   const { data: branches, isLoading, isError, error } = useBranches()
@@ -17,6 +18,8 @@ const BranchPage: FC = () => {
   const [open, setOpen] = useState(false)
   const [isEditOpen, setIsEditOpen] = useState(false)
   const [selectedBranch, setSelectedBranch] = useState<Branch | null>(null)
+
+  const navigate = useNavigate()
 
   useEffect(() => {
     document.title = "Company - Branch Management"
@@ -46,6 +49,12 @@ const BranchPage: FC = () => {
       {/* HEADER */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
+          <button
+            onClick={() => navigate("/admin/dashboard")}
+            className="flex items-center gap-2 text-yellow-600 hover:text-yellow-400 mb-2"
+          >
+            <ArrowLeft size={14} /> Back to Dashboard
+          </button>
           <h1 className="text-2xl sm:text-3xl font-bold text-white">
             Branch Management
           </h1>
@@ -99,42 +108,51 @@ const BranchPage: FC = () => {
               </tr>
             </thead>
             <tbody>
-              {branches?.map((branch) => (
-                <tr
-                  key={branch.id}
-                  className="border-b border-gray-800 hover:bg-gray-800/40 transition"
-                >
-                  <td className="px-6 py-4 text-white font-medium">
+            {branches?.map((branch) => (
+              <tr
+                key={branch.id}
+                className="group border-b border-gray-800 hover:bg-gray-800/40 transition cursor-pointer"
+                onClick={() => navigate(`/admin/branches/${branch.id}`)}
+              >
+                <td className="px-6 py-4 text-white font-medium">
+                  <button
+                    onClick={() => navigate(`/admin/branches/${branch.id}`)}
+                    className="text-yellow-400 hover:text-yellow-300 hover:underline font-semibold transition"
+                  >
                     {branch.code}
-                  </td>
+                  </button>
+                </td>
 
-                  <td className="px-6 py-4">
+                <td className="px-6 py-4 text-white font-medium">
                     {branch.name}
-                  </td>
+                </td>
 
-                  <td className="px-6 py-4 text-right">
-                    <ActionDropdown
-                      items={[
-                        {
-                          label: "Update",
-                          icon: Pencil,
-                          onClick: () => {
-                            setSelectedBranch(branch)
-                            setIsEditOpen(true)
-                          },
+                <td
+                  className="px-6 py-4 text-right"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <ActionDropdown
+                    items={[
+                      {
+                        label: "Update",
+                        icon: Pencil,
+                        onClick: () => {
+                          setSelectedBranch(branch)
+                          setIsEditOpen(true)
                         },
-                        {
-                          label: "Delete",
-                          icon: Trash2,
-                          danger: true,
-                          onClick: () => handleDelete(branch.id),
-                        },
-                      ]}
-                    />
-                  </td>
-                </tr>
-              ))}
-            </tbody>
+                      },
+                      {
+                        label: "Delete",
+                        icon: Trash2,
+                        danger: true,
+                        onClick: () => handleDelete(branch.id),
+                      },
+                    ]}
+                  />
+                </td>
+              </tr>
+            ))}
+          </tbody>
           </table>
         )}
 

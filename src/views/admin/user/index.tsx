@@ -96,6 +96,7 @@ const UserPage: FC = () => {
                 <thead className="text-xs uppercase bg-gray-800">
                   <tr>
                     <th className="px-6 py-3">User</th>
+                    <th className="px-6 py-3">Username</th>
                     <th className="px-6 py-3">Role</th>
                     <th className="px-6 py-3">Status</th>
                     <th className="px-6 py-3 text-right">Actions</th>
@@ -107,6 +108,10 @@ const UserPage: FC = () => {
                       <td className="px-6 py-4">
                         <p className="text-white font-medium">{user.name}</p>
                         <p className="text-gray-400 text-xs">{user.email}</p>
+                      </td>
+
+                      <td className="px-6 py-4">
+                        <p className="text-white font-medium">{user.username}</p>
                       </td>
 
                       <td className="px-6 py-4">
@@ -151,25 +156,30 @@ const UserPage: FC = () => {
                       <p className="text-gray-400 text-xs break-all">{user.email}</p>
                     </div>
 
-                    <span
-                      className={`px-2 py-1 rounded-full text-xs ${
-                        user.is_active
-                          ? "bg-green-500/20 text-green-400"
-                          : "bg-red-500/20 text-red-400"
-                      }`}
-                    >
-                      {user.is_active ? "Active" : "Inactive"}
-                    </span>
+                    <div className="flex gap-1">
+                      <span className="bg-blue-500/20 text-blue-400 px-2 py-1 rounded-full text-xs">
+                        {user.role}
+                      </span>
+                      <span
+                        className={`px-2 py-1 rounded-full text-xs ${
+                          user.is_active
+                            ? "bg-green-500/20 text-green-400"
+                            : "bg-red-500/20 text-red-400"
+                        }`}
+                      >
+                        {user.is_active ? "Active" : "Inactive"}
+                      </span>
+                    </div>
                   </div>
 
-                  <span className="bg-blue-500/20 text-blue-400 px-2 py-1 rounded-full text-xs">
-                    {user.role}
+                  <span className="bg-yellow-500/20 text-white px-2 py-1 rounded-full text-xs">
+                    {user.username}
                   </span>
 
                   <div className="flex gap-2 pt-2">
                     <button
                       onClick={() => handleUpdate(user)}
-                      className="flex-1 flex items-center justify-center gap-2 bg-blue-600/20 text-blue-400 py-2 rounded-lg active:scale-95"
+                      className="flex-1 flex items-center justify-center gap-2 bg-blue-600/20 text-white py-2 rounded-lg active:scale-95"
                     >
                       <Pencil size={16} />
                       Edit
@@ -177,7 +187,7 @@ const UserPage: FC = () => {
 
                     <button
                       onClick={() => handleDelete(user.id)}
-                      className="flex-1 flex items-center justify-center gap-2 bg-red-600/20 text-red-400 py-2 rounded-lg active:scale-95"
+                      className="flex-1 flex items-center justify-center gap-2 bg-red-600/20 text-white py-2 rounded-lg active:scale-95"
                     >
                       <Trash2 size={16} />
                       Delete

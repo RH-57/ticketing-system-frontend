@@ -88,7 +88,7 @@ const Sidebar: FC<SidebarProps> = ({ open, onClose }) => {
           </Link>
 
           <Link
-            to="/admin/company"
+            to="/admin/branches"
             onClick={onClose}
             className={`flex items-center ${
               isExpanded ? "gap-3 px-4" : "justify-center"
