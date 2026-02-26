@@ -23,3 +23,15 @@
     }
   }
 }
+
+.table-scroll {
+  overflow-x: auto;
+  overflow-y: hidden;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
+}
+
+.table-inner {
+  width: max-content;
+  min-width: 100%;
+}

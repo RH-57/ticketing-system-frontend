@@ -10,6 +10,7 @@ import BranchPage from "../views/admin/branch"
 import DivisionPage from "../views/admin/division"
 import NotFound from "../components/NotFound"
 import DepartmentPage from "../views/admin/department"
+import EmployeePage from "../views/admin/employee"
 
 export default function AppRoutes() {
   const auth = useContext(AuthContext)
@@ -53,6 +54,9 @@ export default function AppRoutes() {
           <Route index element={<BranchPage />} />
           <Route path=":branchId" element={<DivisionPage />} />
           <Route path=":branchId/divisions/:divisionId" element={<DepartmentPage />} />
+        </Route>
+        <Route path="employees">
+          <Route index element={<EmployeePage />} />
         </Route>
 
         <Route path="*" element={<NotFound />} />
