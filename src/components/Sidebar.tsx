@@ -1,4 +1,4 @@
-import { Blocks, Home, User, Users } from "lucide-react"
+import { Blocks, Home, Layers2, Ticket, User, Users } from "lucide-react"
 import { FC, useEffect, useState } from "react"
 import { useAuthUser } from "../hooks/auth/useAuthUser"
 import { Link } from "react-router-dom"
@@ -81,20 +81,20 @@ const Sidebar: FC<SidebarProps> = ({ open, onClose }) => {
             onClick={onClose}
             className={`flex items-center ${
               isExpanded ? "gap-3 px-4" : "justify-center"
-            } py-2 rounded-lg hover:bg-gray-700`}
+            } py-2 rounded-lg hover:bg-gray-800`}
           >
             <User className="w-6 h-6" />
             {isExpanded && <span>User Management</span>}
           </Link>
 
-          <div className={`border-t border-gray-700 my-3 ${isExpanded ? "mx-4" : "mx-2"}`}></div>
+          <div className={`border-t border-gray-800 my-3 ${isExpanded ? "mx-4" : "mx-2"}`}></div>
 
           <Link
             to="/admin/branches"
             onClick={onClose}
             className={`flex items-center ${
               isExpanded ? "gap-3 px-4" : "justify-center"
-            } py-2 rounded-lg hover:bg-gray-700`}
+            } py-2 rounded-lg hover:bg-gray-800`}
           >
             <Blocks className="w-6 h-6" />
             {isExpanded && <span>Company</span>}
@@ -105,10 +105,36 @@ const Sidebar: FC<SidebarProps> = ({ open, onClose }) => {
             onClick={onClose}
             className={`flex items-center ${
               isExpanded ? "gap-3 px-4" : "justify-center"
-            } py-2 rounded-lg hover:bg-gray-700`}
+            } py-2 rounded-lg hover:bg-gray-800`}
           >
             <Users className="w-6 h-6" />
             {isExpanded && <span>Employees</span>}
+          </Link>
+
+          <div className={`border-t border-gray-800 my-3 ${isExpanded ? "mx-4" : "mx-2"}`}></div>
+
+          <Link
+            to="/admin/categories"
+            onClick={onClose}
+            className={`flex items-center ${
+              isExpanded ? "gap-3 px-4" : "justify-center"
+            } py-2 rounded-lg hover:bg-gray-800`}
+          >
+            <Layers2 className="w-6 h-6" />
+            {isExpanded && <span>Categories</span>}
+          </Link>
+
+          <div className={`border-t border-gray-800 my-3 ${isExpanded ? "mx-4" : "mx-2"}`}></div>
+
+          <Link
+            to=""
+            onClick={onClose}
+            className={`flex items-center ${
+              isExpanded ? "gap-3 px-4" : "justify-center"
+            } py-2 rounded-lg hover:bg-gray-700`}
+          >
+            <Ticket className="w-6 h-6" />
+            {isExpanded && <span>Ticket</span>}
           </Link>
         </nav>
 

@@ -11,6 +11,7 @@ import DivisionPage from "../views/admin/division"
 import NotFound from "../components/NotFound"
 import DepartmentPage from "../views/admin/department"
 import EmployeePage from "../views/admin/employee"
+import CategoryPage from "../views/admin/category"
 
 export default function AppRoutes() {
   const auth = useContext(AuthContext)
@@ -57,6 +58,9 @@ export default function AppRoutes() {
         </Route>
         <Route path="employees">
           <Route index element={<EmployeePage />} />
+        </Route>
+        <Route path="categories">
+          <Route index element={<CategoryPage />} />
         </Route>
 
         <Route path="*" element={<NotFound />} />
