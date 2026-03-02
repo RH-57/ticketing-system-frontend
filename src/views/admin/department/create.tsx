@@ -5,6 +5,7 @@ import useDepartmentCreate, {
   ValidationErrors,
 } from "../../../hooks/department/useDepartmentCreate"
 import { AxiosError } from "axios"
+import { AlertCircle } from "lucide-react"
 
 interface Props {
   branchId: string
@@ -67,7 +68,12 @@ const CreateDepartmentModal: FC<Props> = ({
               className="mt-1 w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white"
             />
             {errors.name && (
-              <p className="text-red-400 text-xs mt-1">{errors.name}</p>
+              <div className="mt-2 flex items-start gap-2 rounded-md bg-red-50 border border-red-200 px-3 py-2">
+                  <AlertCircle className="h-4 w-4 text-red-500 mt-[2px]" />
+                  <span className="text-sm text-red-700 font-medium">
+                  {errors.name[0]}
+                  </span>
+              </div>
             )}
           </div>
 
@@ -81,9 +87,9 @@ const CreateDepartmentModal: FC<Props> = ({
             </button>
             <button
               type="submit"
-              className="flex-1 bg-purple-600 hover:bg-purple-700 rounded-lg py-2"
+              className="flex-1 bg-blue-600 hover:bg-blue-700 rounded-lg py-2 transition disabled:opacity-50"
             >
-              Create
+              Save
             </button>
           </div>
         </form>

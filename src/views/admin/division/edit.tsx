@@ -4,6 +4,8 @@ import toast from "react-hot-toast"
 import useDivisionUpdate from "../../../hooks/division/useDivisionUpdate"
 import { Division } from "../../../hooks/division/useDivisions"
 import { AxiosError } from "axios"
+import { ValidationErrors } from "../../../hooks/division/useDivisionCreate"
+import { AlertCircle } from "lucide-react"
 
 interface Props {
   branchId: string
@@ -11,11 +13,6 @@ interface Props {
   isOpen: boolean
   onClose: () => void
   onSuccess?: () => void
-}
-
-interface ValidationErrors {
-  code?: string[]
-  name?: string[]
 }
 
 interface ErrorResponse {
@@ -69,9 +66,12 @@ const EditDivisionModal: FC<Props> = ({ branchId, division, isOpen, onClose, onS
             <label className="text-sm text-gray-400">Code</label>
             <input value={code} onChange={(e)=>setCode(e.target.value)} className="mt-1 w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white" />
             {errors.code && (
-              <p className="text-red-400 text-xs mt-1">
-                {errors.code[0]}
-              </p>
+              <div className="mt-2 flex items-start gap-2 rounded-md bg-red-50 border border-red-200 px-3 py-2">
+                  <AlertCircle className="h-4 w-4 text-red-500 mt-[2px]" />
+                  <span className="text-sm text-red-700 font-medium">
+                  {errors.code[0]}
+                  </span>
+              </div>
             )}
           </div>
 
@@ -79,9 +79,12 @@ const EditDivisionModal: FC<Props> = ({ branchId, division, isOpen, onClose, onS
             <label className="text-sm text-gray-400">Name</label>
             <input value={name} onChange={(e)=>setName(e.target.value)} className="mt-1 w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white" />
             {errors.name && (
-              <p className="text-red-400 text-xs mt-1">
-                {errors.name[0]}
-              </p>
+              <div className="mt-2 flex items-start gap-2 rounded-md bg-red-50 border border-red-200 px-3 py-2">
+                  <AlertCircle className="h-4 w-4 text-red-500 mt-[2px]" />
+                  <span className="text-sm text-red-700 font-medium">
+                  {errors.name[0]}
+                  </span>
+              </div>
             )}
           </div>
 

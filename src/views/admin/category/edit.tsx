@@ -80,16 +80,19 @@ const EditCategoryModal: FC<Props> = ({
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="mt-1 w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white focus:ring-2 focus:ring-yellow-600 outline-none"
+              className={`mt-1 w-full bg-gray-800 rounded-lg px-3 py-2 text-white outline-none transition
+                ${
+                  errors.name
+                    ? "border border-red-500 focus:ring-2 focus:ring-red-500"
+                    : "border border-gray-700 focus:ring-2 focus:ring-blue-600"
+                }`}
               placeholder="Example: Laptop"
             />
             {errors.name && (
-            <div className="mt-2 flex items-start gap-2 rounded-md bg-red-50 border border-red-200 px-3 py-2">
-                <AlertCircle className="h-4 w-4 text-red-500 mt-[2px]" />
-                <span className="text-sm text-red-700 font-medium">
-                {errors.name[0]}
-                </span>
-            </div>
+              <div className="mt-1 flex items-center gap-1 text-red-500 text-xs">
+                <AlertCircle className="h-3.5 w-3.5" />
+                <span>{errors.name[0]}</span>
+              </div>
             )}
           </div>
 

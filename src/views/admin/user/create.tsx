@@ -1,6 +1,7 @@
 import { FC, useState, FormEvent } from "react"
 import useUserCreate from "../../../hooks/user/useUserCreate"
 import toast from "react-hot-toast"
+import { AlertCircle } from "lucide-react"
 
 interface Props {
   isOpen: boolean
@@ -73,7 +74,7 @@ const CreateUserModal: FC<Props> = ({ isOpen, onClose, onSuccess }) => {
       <div className="relative w-full sm:max-w-lg bg-gray-900 border border-gray-800 rounded-t-2xl sm:rounded-2xl p-6 animate-slideUp">
 
         <h2 className="text-xl font-semibold text-white mb-5">
-          Add User
+          Create User
         </h2>
 
         <form onSubmit={storeUser} className="space-y-4">
@@ -85,23 +86,45 @@ const CreateUserModal: FC<Props> = ({ isOpen, onClose, onSuccess }) => {
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="mt-1 w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white focus:ring-2 focus:ring-blue-600 outline-none"
+              className={`mt-1 w-full bg-gray-800 rounded-lg px-3 py-2 text-white outline-none transition
+                ${
+                  errors.name
+                    ? "border border-red-500 focus:ring-2 focus:ring-red-500"
+                    : "border border-gray-700 focus:ring-2 focus:ring-blue-600"
+                }`}
               placeholder="Full Name"
             />
-            {errors.name && <p className="text-red-400 text-xs mt-1">{errors.name}</p>}
+            {errors.name && (
+              <div className="mt-1 flex items-center gap-1 text-red-500 text-xs">
+                <AlertCircle className="h-3.5 w-3.5" />
+                <span>{errors.name[0]}</span>
+              </div>
+            )}
           </div>
 
           {/* USERNAME */}
           <div>
             <label className="text-sm text-gray-400">Username</label>
+
             <input
               type="text"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
-              className="mt-1 w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white focus:ring-2 focus:ring-blue-600 outline-none"
+              className={`mt-1 w-full bg-gray-800 rounded-lg px-3 py-2 text-white outline-none transition
+                ${
+                  errors.username
+                    ? "border border-red-500 focus:ring-2 focus:ring-red-500"
+                    : "border border-gray-700 focus:ring-2 focus:ring-blue-600"
+                }`}
               placeholder="Username"
             />
-            {errors.username && <p className="text-red-400 text-xs mt-1">{errors.username}</p>}
+
+            {errors.username && (
+              <div className="mt-1 flex items-center gap-1 text-red-500 text-xs">
+                <AlertCircle className="h-3.5 w-3.5" />
+                <span>{errors.username[0]}</span>
+              </div>
+            )}
           </div>
 
           {/* EMAIL */}
@@ -111,10 +134,20 @@ const CreateUserModal: FC<Props> = ({ isOpen, onClose, onSuccess }) => {
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              className="mt-1 w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white focus:ring-2 focus:ring-blue-600 outline-none"
+              className={`mt-1 w-full bg-gray-800 rounded-lg px-3 py-2 text-white outline-none transition
+                ${
+                  errors.email
+                    ? "border border-red-500 focus:ring-2 focus:ring-red-500"
+                    : "border border-gray-700 focus:ring-2 focus:ring-blue-600"
+                }`}
               placeholder="Email Address"
             />
-            {errors.email && <p className="text-red-400 text-xs mt-1">{errors.email}</p>}
+            {errors.email && (
+              <div className="mt-1 flex items-center gap-1 text-red-500 text-xs">
+                <AlertCircle className="h-3.5 w-3.5" />
+                <span>{errors.email[0]}</span>
+              </div>
+            )}
           </div>
 
           {/* PASSWORD */}
@@ -124,10 +157,20 @@ const CreateUserModal: FC<Props> = ({ isOpen, onClose, onSuccess }) => {
               type="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              className="mt-1 w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white focus:ring-2 focus:ring-blue-600 outline-none"
+              className={`mt-1 w-full bg-gray-800 rounded-lg px-3 py-2 text-white outline-none transition
+                ${
+                  errors.password
+                    ? "border border-red-500 focus:ring-2 focus:ring-red-500"
+                    : "border border-gray-700 focus:ring-2 focus:ring-blue-600"
+                }`}
               placeholder="Password"
             />
-            {errors.password && <p className="text-red-400 text-xs mt-1">{errors.password}</p>}
+            {errors.password && (
+              <div className="mt-1 flex items-center gap-1 text-red-500 text-xs">
+                <AlertCircle className="h-3.5 w-3.5" />
+                <span>{errors.password[0]}</span>
+              </div>
+            )}
           </div>
 
           {/* ROLE */}

@@ -12,7 +12,9 @@ export interface ValidationErrors {
 }
 
 export interface ErrorResponse {
-    errors?: ValidationErrors
+  success: boolean
+  errors?: ValidationErrors
+  message?: string
 }
 
 const useCategoryCreate = () => {

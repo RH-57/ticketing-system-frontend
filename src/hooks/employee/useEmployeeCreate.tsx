@@ -13,9 +13,7 @@ export interface ValidationErrors {
 }
 
 export interface ErrorResponse {
-  success: boolean
   errors?: ValidationErrors
-  message?: string
 }
 
 const useEmployeeCreate = () => {
@@ -24,10 +22,10 @@ const useEmployeeCreate = () => {
     AxiosError<ErrorResponse>,
     EmployeeCreateRequest
   >({
-    mutationFn: async (data: EmployeeCreateRequest) => {
+    mutationFn: async (data) => {
       const response = await Api.post("/api/employees", data)
       return response.data
-    }
+    },
   })
 }
 

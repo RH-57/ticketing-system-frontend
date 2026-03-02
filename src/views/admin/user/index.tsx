@@ -1,5 +1,5 @@
 import { FC, useEffect, useState } from "react"
-import { Plus, Users, UserCheck, Pencil, Trash2 } from "lucide-react"
+import { Plus, Users, UserCheck, Pencil, Trash2, ArrowLeft } from "lucide-react"
 import useUsers, { User as IUser } from "../../../hooks/user/useUsers"
 import useUserDelete from "../../../hooks/user/useUserDelete"
 import CreateUserModal from "./create"
@@ -7,11 +7,14 @@ import ActionDropdown from "../../../components/ActionDropdown"
 import { useQueryClient } from "@tanstack/react-query"
 import toast from "react-hot-toast"
 import EditUserModal from "./edit"
+import { useNavigate } from "react-router"
 
 const UserPage: FC = () => {
   const { data: users, isLoading, isError, error } = useUsers()
   const queryClient = useQueryClient()
   const deleteUser = useUserDelete()
+
+  const navigate = useNavigate()
 
   const [open, setOpen] = useState(false)
   const [editingUserId, setEditingUserId] = useState<number | null>(null)
@@ -44,6 +47,12 @@ const UserPage: FC = () => {
       {/* HEADER */}
       <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
         <div>
+          <button
+            onClick={() => navigate("/admin/dashboard")}
+            className="flex items-center gap-2 text-yellow-600 hover:text-yellow-400 mb-2"
+          >
+            <ArrowLeft size={14} /> Back to Dashboard
+          </button>
           <h1 className="text-2xl sm:text-3xl font-bold text-white">User Management</h1>
           <p className="text-gray-400 text-sm sm:text-base mt-1">
             Manage your team members and their account permissions

@@ -1,8 +1,8 @@
 import { useMutation } from "@tanstack/react-query"
-import Api from "../../services/api"
 import { AxiosError } from "axios"
+import api from "../../services/api"
 
-export interface EmployeeUpdateRequest {
+export interface EmployeeRequest {
   id: number
   name: string
   department_id: number
@@ -15,20 +15,19 @@ export interface ValidationErrors {
 
 export interface ErrorResponse {
   errors?: ValidationErrors
-  message?: string
 }
 
-const useUpdateEmployee = () => {
+const useEmployeeUpdate = () => {
   return useMutation<
     unknown,
     AxiosError<ErrorResponse>,
-    EmployeeUpdateRequest
+    EmployeeRequest
   >({
-    mutationFn: async ({ id, ...data }: EmployeeUpdateRequest) => {
-      const response = await Api.put(`/api/employees/${id}`, data)
+    mutationFn: async (data) => {
+      const response = await api.put(`/api/employees/${data.id}`, data)
       return response.data
-    }
+    },
   })
 }
 
-export default useUpdateEmployee
+export default useEmployeeUpdate

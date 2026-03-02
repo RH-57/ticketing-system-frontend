@@ -1,17 +1,13 @@
 import { FC, useState, FormEvent } from "react"
 import { AxiosError } from "axios"
 import toast from "react-hot-toast"
-import useBranchCreate from "../../../hooks/branch/useBranchCreate"
+import useBranchCreate, { ValidationErrors } from "../../../hooks/branch/useBranchCreate"
+import { AlertCircle } from "lucide-react"
 
 interface Props {
   isOpen: boolean
   onClose: () => void
   onSuccess?: () => void
-}
-
-interface ValidationErrors {
-  code?: string[]
-  name?: string[]
 }
 
 interface ErrorResponse {
@@ -81,13 +77,19 @@ const CreateBranchModal: FC<Props> = ({
               type="text"
               value={code}
               onChange={(e) => setCode(e.target.value)}
-              className="mt-1 w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white focus:ring-2 focus:ring-blue-600 outline-none"
+              className={`mt-1 w-full bg-gray-800 rounded-lg px-3 py-2 text-white outline-none transition
+                ${
+                  errors.code
+                    ? "border border-red-500 focus:ring-2 focus:ring-red-500"
+                    : "border border-gray-700 focus:ring-2 focus:ring-blue-600"
+                }`}
               placeholder="Example: JKT01"
             />
             {errors.code && (
-              <p className="text-red-400 text-xs mt-1">
-                {errors.code[0]}
-              </p>
+              <div className="mt-1 flex items-center gap-1 text-red-500 text-xs">
+                <AlertCircle className="h-3.5 w-3.5" />
+                <span>{errors.code[0]}</span>
+              </div>
             )}
           </div>
 
@@ -98,13 +100,19 @@ const CreateBranchModal: FC<Props> = ({
               type="text"
               value={name}
               onChange={(e) => setName(e.target.value)}
-              className="mt-1 w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white focus:ring-2 focus:ring-blue-600 outline-none"
+              className={`mt-1 w-full bg-gray-800 rounded-lg px-3 py-2 text-white outline-none transition
+                ${
+                  errors.name
+                    ? "border border-red-500 focus:ring-2 focus:ring-red-500"
+                    : "border border-gray-700 focus:ring-2 focus:ring-blue-600"
+                }`}
               placeholder="Branch Name"
             />
             {errors.name && (
-              <p className="text-red-400 text-xs mt-1">
-                {errors.name[0]}
-              </p>
+              <div className="mt-1 flex items-center gap-1 text-red-500 text-xs">
+                <AlertCircle className="h-3.5 w-3.5" />
+                <span>{errors.name[0]}</span>
+              </div>
             )}
           </div>
 

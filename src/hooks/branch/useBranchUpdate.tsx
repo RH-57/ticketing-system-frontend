@@ -2,18 +2,18 @@ import { useMutation } from "@tanstack/react-query"
 import { AxiosError } from "axios"
 import api from "../../services/api"
 
-interface BranchRequest {
+export interface BranchRequest {
   id: number
   code: string
   name: string
 }
 
-interface ValidationErrors {
+export interface ValidationErrors {
   code?: string[]
   name?: string[]
 }
 
-interface ErrorResponse {
+export interface ErrorResponse {
   errors?: ValidationErrors
 }
 
