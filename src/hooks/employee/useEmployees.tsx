@@ -20,29 +20,47 @@ export interface Department {
 export interface Employee {
   id: number
   name: string
-  branch_id: number
-  division_id: number
-  department_id: number
   branch: Branch
   division: Division
   department: Department
+  created_at: string
+  updated_at: string
 }
 
-const useEmployees = () => {
-  return useQuery<Employee[], Error>({
-    queryKey: ["employees"],
+export interface PaginationMeta {
+  current_page: number
+  per_page: number
+  total: number
+  last_page: number
+}
+
+export interface PaginatedEmployeeResponse {
+  success: boolean
+  message: string
+  data: Employee[]
+  meta: PaginationMeta
+}
+
+const useEmployees = (page: number, perPage: number = 10) => {
+  return useQuery<PaginatedEmployeeResponse, Error>({
+    queryKey: ["employees", page, perPage],
 
     queryFn: async () => {
       const token = Cookies.get("token")
 
-      const response = await Api.get("/api/employees", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+      const response = await Api.get(
+        `/api/employees?page=${page}&per_page=${perPage}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      )
 
-      return response.data.data as Employee[]
+      return response.data
     },
+
+    placeholderData: (previousData) => previousData,
   })
 }
 

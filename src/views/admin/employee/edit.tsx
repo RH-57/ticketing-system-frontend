@@ -6,16 +6,13 @@ import useEmployeeUpdate, {
   ValidationErrors,
 } from "../../../hooks/employee/useEmployeeUpdate"
 import useAllDepartments from "../../../hooks/department/useAllDepartments"
+import { Employee } from "../../../hooks/employee/useEmployees"
 
 interface Props {
   isOpen: boolean
   onClose: () => void
   onSuccess?: () => void
-  employee: {
-    id: number
-    name: string
-    department_id: number
-  } | null
+  employee: Employee | null
 }
 
 interface ErrorResponse {
@@ -38,7 +35,7 @@ const EditEmployeeModal: FC<Props> = ({
   useEffect(() => {
     if (employee) {
       setName(employee.name)
-      setDepartmentId(employee.department_id)
+      setDepartmentId(employee.department.id)
     }
   }, [employee])
 
