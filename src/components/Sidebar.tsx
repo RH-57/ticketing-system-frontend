@@ -1,4 +1,4 @@
-import { Blocks, Home, Layers2, Ticket, User, Users } from "lucide-react"
+import { Blocks, Home, Ticket, User, ChevronDown } from "lucide-react"
 import { FC, useEffect, useState } from "react"
 import { useAuthUser } from "../hooks/auth/useAuthUser"
 import { Link } from "react-router-dom"
@@ -11,6 +11,7 @@ interface SidebarProps {
 const Sidebar: FC<SidebarProps> = ({ open, onClose }) => {
   const user = useAuthUser()
   const [isHovered, setIsHovered] = useState(false)
+  const [isMasterOpen, setIsMasterOpen] = useState(false)
 
   const isExpanded = open || isHovered
 
@@ -89,40 +90,59 @@ const Sidebar: FC<SidebarProps> = ({ open, onClose }) => {
 
           <div className={`border-t border-gray-800 my-3 ${isExpanded ? "mx-4" : "mx-2"}`}></div>
 
-          <Link
-            to="/admin/branches"
-            onClick={onClose}
-            className={`flex items-center ${
-              isExpanded ? "gap-3 px-4" : "justify-center"
-            } py-2 rounded-lg hover:bg-gray-800`}
-          >
-            <Blocks className="w-6 h-6" />
-            {isExpanded && <span>Company</span>}
-          </Link>
+          {/* MASTER DROPDOWN */}
+          <div>
+            <button
+              onClick={() => setIsMasterOpen(!isMasterOpen)}
+              className={`flex items-center w-full ${
+                isExpanded ? "gap-3 px-4" : "justify-center"
+              } py-2 rounded-lg hover:bg-gray-800 transition`}
+            >
+              <Blocks className="w-6 h-6" />
 
-          <Link
-            to="/admin/employees"
-            onClick={onClose}
-            className={`flex items-center ${
-              isExpanded ? "gap-3 px-4" : "justify-center"
-            } py-2 rounded-lg hover:bg-gray-800`}
-          >
-            <Users className="w-6 h-6" />
-            {isExpanded && <span>Employees</span>}
-          </Link>
+              {isExpanded && (
+                <>
+                  <span className="flex-1 text-left">Master</span>
+                  <ChevronDown
+                    className={`w-4 h-4 transition-transform ${
+                      isMasterOpen ? "rotate-180" : ""
+                    }`}
+                  />
+                </>
+              )}
+            </button>
 
-          <div className={`border-t border-gray-800 my-3 ${isExpanded ? "mx-4" : "mx-2"}`}></div>
+            {/* DROPDOWN ITEMS */}
+            {isExpanded && isMasterOpen && (
+              <div className="ml-10 mt-1 space-y-1 text-gray-400">
 
-          <Link
-            to="/admin/categories"
-            onClick={onClose}
-            className={`flex items-center ${
-              isExpanded ? "gap-3 px-4" : "justify-center"
-            } py-2 rounded-lg hover:bg-gray-800`}
-          >
-            <Layers2 className="w-6 h-6" />
-            {isExpanded && <span>Categories</span>}
-          </Link>
+                <Link
+                  to="/admin/branches"
+                  onClick={onClose}
+                  className="block py-1 hover:text-white"
+                >
+                  Company
+                </Link>
+
+                <Link
+                  to="/admin/employees"
+                  onClick={onClose}
+                  className="block py-1 hover:text-white"
+                >
+                  Employees
+                </Link>
+
+                <Link
+                  to="/admin/categories"
+                  onClick={onClose}
+                  className="block py-1 hover:text-white"
+                >
+                  Categories
+                </Link>
+
+              </div>
+            )}
+          </div>
 
           <div className={`border-t border-gray-800 my-3 ${isExpanded ? "mx-4" : "mx-2"}`}></div>
 
