@@ -5,12 +5,10 @@ import { AxiosError } from "axios";
 export interface SubCategoryUpdateRequest {
   id: number;
   name: string;
-  slug: string;
 }
 
 export interface ValidationErrors {
   name?: string[];
-  slug?: string[];
 }
 
 export interface ErrorResponse {

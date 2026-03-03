@@ -112,7 +112,6 @@ const SubCategoryPage: FC = () => {
             <thead className="text-xs uppercase bg-gray-800">
               <tr>
                 <th className="px-6 py-3">Name</th>
-                <th className="px-6 py-3">Slug</th>
                 <th className="px-6 py-3 text-right">Actions</th>
               </tr>
             </thead>
@@ -125,10 +124,6 @@ const SubCategoryPage: FC = () => {
                 >
                   <td className="px-6 py-4 text-yellow-400 font-semibold">
                     {sub.name}
-                  </td>
-
-                  <td className="px-6 py-4 text-white">
-                    {sub.slug}
                   </td>
 
                   <td

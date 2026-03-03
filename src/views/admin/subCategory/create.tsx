@@ -21,7 +21,6 @@ const CreateSubCategoryModal: FC<Props> = ({
   onSuccess,
 }) => {
   const [name, setName] = useState("")
-  const [slug, setSlug] = useState("")
   const [errors, setErrors] = useState<ValidationErrors>({})
 
   const createSubCategory = useSubCategoryCreate(categoryId)
@@ -33,12 +32,11 @@ const CreateSubCategoryModal: FC<Props> = ({
     setErrors({})
 
     createSubCategory.mutate(
-      { name, slug },
+      { name },
       {
         onSuccess: () => {
           toast.success("Sub category created successfully")
           setName("")
-          setSlug("")
           onSuccess?.()
           onClose()
         },
@@ -77,25 +75,6 @@ const CreateSubCategoryModal: FC<Props> = ({
                 <AlertCircle className="h-4 w-4 text-red-500 mt-[2px]" />
                 <span className="text-sm text-red-700 font-medium">
                   {errors.name[0]}
-                </span>
-              </div>
-            )}
-          </div>
-
-          {/* SLUG */}
-          <div>
-            <label className="text-sm text-gray-400">Slug</label>
-            <input
-              value={slug}
-              onChange={(e) => setSlug(e.target.value)}
-              className="mt-1 w-full bg-gray-800 border border-gray-700 rounded-lg px-3 py-2 text-white"
-            />
-
-            {errors.slug && (
-              <div className="mt-2 flex items-start gap-2 rounded-md bg-red-50 border border-red-200 px-3 py-2">
-                <AlertCircle className="h-4 w-4 text-red-500 mt-[2px]" />
-                <span className="text-sm text-red-700 font-medium">
-                  {errors.slug[0]}
                 </span>
               </div>
             )}
