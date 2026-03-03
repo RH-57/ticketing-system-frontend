@@ -101,11 +101,11 @@ const CategoryPage: FC = () => {
                                 <tr
                                     key={category.id}
                                     className="group border-b border-gray-800 hover:bg-gray-800/40 transition cursor-pointer"
-                                    onClick={() => navigate("")}
+                                    onClick={() => navigate(`/admin/categories/${category.id}`)}
                                 >
                                     <td className="px-6 py-2 text-white font-medium">
                                         <button
-                                            onClick={() => navigate("")}
+                                            onClick={() => navigate(`/admin/categories/${category.id}`)}
                                             className="text-yellow-400 hover:text-yellow-300 hover:underline font-semibold transition"
                                         >
                                             {category.name}

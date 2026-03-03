@@ -12,6 +12,7 @@ import NotFound from "../components/NotFound"
 import DepartmentPage from "../views/admin/department"
 import EmployeePage from "../views/admin/employee"
 import CategoryPage from "../views/admin/category"
+import SubCategoryPage from "../views/admin/subCategory"
 
 export default function AppRoutes() {
   const auth = useContext(AuthContext)
@@ -61,6 +62,7 @@ export default function AppRoutes() {
         </Route>
         <Route path="categories">
           <Route index element={<CategoryPage />} />
+          <Route path=":categoryId" element={<SubCategoryPage />} />
         </Route>
 
         <Route path="*" element={<NotFound />} />
