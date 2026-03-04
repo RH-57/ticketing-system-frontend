@@ -13,6 +13,7 @@ import DepartmentPage from "../views/admin/department"
 import EmployeePage from "../views/admin/employee"
 import CategoryPage from "../views/admin/category"
 import SubCategoryPage from "../views/admin/subCategory"
+import ItemPage from "../views/admin/item"
 
 export default function AppRoutes() {
   const auth = useContext(AuthContext)
@@ -63,6 +64,7 @@ export default function AppRoutes() {
         <Route path="categories">
           <Route index element={<CategoryPage />} />
           <Route path=":categoryId" element={<SubCategoryPage />} />
+          <Route path=":categoryId/sub-categories/:subCategoryId" element={<ItemPage />} />
         </Route>
 
         <Route path="*" element={<NotFound />} />
