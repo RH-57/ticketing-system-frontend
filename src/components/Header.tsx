@@ -1,8 +1,8 @@
-import { LogOut, Menu, Search, Settings} from "lucide-react"
+import { KeyRound, LogOut, Menu, Search} from "lucide-react"
 import { FC, useState, useEffect, useRef } from "react"
 import { useAuthUser } from "../hooks/auth/useAuthUser"
 import { useLogout } from "../hooks/auth/useLogout"
-import { useNavigate } from "react-router-dom"
+import ChangePasswordModal from "../views/admin/user/changePassword"
 
 interface HeaderProps {
   onMenuClick: () => void
@@ -11,8 +11,8 @@ interface HeaderProps {
 const Header: FC<HeaderProps> = ({ onMenuClick }) => {
   const user = useAuthUser()
   const [open, setOpen] = useState(false)
+  const [openChangePassword, setOpenChangePassword] = useState(false)
   const logout = useLogout()
-  const navigate = useNavigate()
   const dropdownRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -87,13 +87,13 @@ const Header: FC<HeaderProps> = ({ onMenuClick }) => {
 
             <button
               onClick={() => {
-                navigate("/admin/settings")
+                setOpenChangePassword(true)
                 setOpen(false)
               }}
               className="flex items-center gap-2 w-full px-4 py-2 text-sm hover:bg-gray-700 text-left"
             >
-              <Settings className="w-4 h-4" />
-              Settings
+              <KeyRound className="w-4 h-4" />
+              Change Password
             </button>
 
             <div className="border-t border-gray-700"></div>
@@ -112,7 +112,12 @@ const Header: FC<HeaderProps> = ({ onMenuClick }) => {
           </div>
         )}
       </div>
+      <ChangePasswordModal
+        isOpen={openChangePassword}
+        onClose={() => setOpenChangePassword(false)}
+      />
     </header>
+
   )
 }
 
