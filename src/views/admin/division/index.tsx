@@ -104,9 +104,9 @@ const DivisionPage: FC = () => {
           <table className="min-w-full text-sm text-left text-gray-400">
             <thead className="text-xs uppercase bg-gray-800">
               <tr>
-                <th className="px-6 py-3">Code</th>
-                <th className="px-6 py-3">Name</th>
-                <th className="px-6 py-3 text-right">Actions</th>
+                <th className="px-6 py-2">Code</th>
+                <th className="px-6 py-2">Name</th>
+                <th className="px-6 py-2 text-right">Actions</th>
               </tr>
             </thead>
 
@@ -117,18 +117,18 @@ const DivisionPage: FC = () => {
                   className="group border-b border-gray-800 hover:bg-gray-800/40 transition cursor-pointer"
                   onClick={() => navigate(`/admin/branches/${branchId}/divisions/${division.id}`)}
                 >
-                  <td className="px-6 py-4">
+                  <td className="px-6 py-1">
                     <span className="text-yellow-400 hover:text-yellow-300 hover:underline font-semibold transition">
                       {division.code}
                     </span>
                   </td>
 
-                  <td className="px-6 py-4 text-white font-medium">
+                  <td className="px-6 py-1 text-white font-medium">
                     {division.name}
                   </td>
 
                   <td
-                    className="px-6 py-4 text-right"
+                    className="px-6 py-1 text-right"
                     onClick={(e) => e.stopPropagation()}
                   >
                     <ActionDropdown

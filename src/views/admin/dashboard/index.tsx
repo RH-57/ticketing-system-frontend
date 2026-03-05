@@ -1,7 +1,10 @@
 import { FC, useEffect } from "react";
+import { useAuthUser } from "../../../hooks/auth/useAuthUser";
 
 
 const Dashboard: FC = () => {
+    const user = useAuthUser()
+
     useEffect(() => {
             document.title = "Dashboards - Ticketing System"
         })
@@ -10,7 +13,7 @@ const Dashboard: FC = () => {
             <div>
                 <h1 className="text-2xl font-bold">Dashboard Overview</h1>
                 <p className="text-sm text-gray-500 mt-1 mb-2">
-                    Welcome back!
+                    Welcome back {user?.name}!
                 </p>
             </div>
 
