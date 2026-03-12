@@ -90,11 +90,7 @@ Api.interceptors.response.use(
 
       try {
 
-        const response = await axios.post<RefreshResponse>(
-          'http://localhost:3000/api/refresh',
-          {},
-          { withCredentials: true }
-        )
+        const response = await Api.post<RefreshResponse>('/api/refresh')
 
         const newToken = response.data.access_token
 

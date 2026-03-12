@@ -42,7 +42,7 @@ const Sidebar: FC<SidebarProps> = ({ open, onClose }) => {
           ${
             isExpanded
               ? "w-64 translate-x-0"
-              : "w-64 -translate-x-full lg:w-20 lg:translate-x-0"
+              : "w-64 -translate-x-full lg:w-14 lg:translate-x-0"
           }
         `}
       >

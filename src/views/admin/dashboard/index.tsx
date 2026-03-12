@@ -1,39 +1,61 @@
 import { FC, useEffect } from "react";
 import { useAuthUser } from "../../../hooks/auth/useAuthUser";
-
+import useDashboardStats from "../../../hooks/dashboard/useDashboardStats";
+import useTickets from "../../../hooks/ticket/useTicket";
+import StatsSection from "./components/StatsSection";
+import TaskSection from "./components/TaskSection"; // Import komponen baru
+import SLASection from "./components/SLASection";
+import TicketChart from "./components/TicketChart";
 
 const Dashboard: FC = () => {
-    const user = useAuthUser()
+  const user = useAuthUser();
+  const { data: stats, isLoading: statsLoading, isError } = useDashboardStats();
+  const { data: tickets, isLoading: ticketsLoading } = useTickets();
 
-    useEffect(() => {
-            document.title = "Dashboards - Ticketing System"
-        })
-    return(
-       <>
-            <div>
-                <h1 className="text-2xl font-bold">Dashboard Overview</h1>
-                <p className="text-sm text-gray-500 mt-1 mb-2">
-                    Welcome back {user?.name}!
-                </p>
-            </div>
+  useEffect(() => {
+    document.title = "Dashboard - Ticketing System";
+  }, []);
 
-            <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
-                <div className="bg-gray-900 p-6 rounded-lg shadow-sm">
-                    <p className="text-md text-white">Total Ticket</p>
-                </div>
-                <div className="bg-gray-900 p-6 rounded-lg shadow-sm">
+  return (
+    <div className="space-y-4 pb-6 font-inter">
+      {/* Welcome Header */}
+      <div>
+        <h1 className="text-xl sm:text-2xl font-bold text-white tracking-tight">Dashboard Overview</h1>
+        <p className="text-xs text-gray-400 mt-0.5">
+          Welcome back, <span className="text-yellow-600 font-semibold">{user?.name}</span>!
+        </p>
+      </div>
 
-                </div>
-                <div className="bg-gray-900 p-6 rounded-lg shadow-sm">
+      {/* Main Content Grid */}
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-2">
+        {/* Left Column: Statistics */}
+        <div className="lg:col-span-1 space-y-2 items-start"> 
+            <section>
+                <StatsSection stats={stats} isLoading={statsLoading} />
+            </section>
+            
+            <section>
+              <TaskSection tickets={tickets} isLoading={ticketsLoading} />
+            </section>
+        </div>
 
-                </div>
-                <div className="bg-gray-900 p-6 rounded-lg shadow-sm">
+        <div className="lg:col-span-1">
+          <SLASection value={stats?.sla} isLoading={statsLoading} />
+        </div>
 
-                </div>
-            </div>
-       </>
-        
-    )
-}
+        {/* Right Column: Chart */}
+        <div className="lg:col-span-2 space-y-2 items-start">
+            <TicketChart data={stats?.monthly_trend} isLoading={statsLoading} />
+        </div>
+      </div>
 
-export default Dashboard
+      {isError && (
+        <p className="text-red-500 text-[10px] italic text-center">
+          Failed to load dashboard data. Please try refreshing the page.
+        </p>
+      )}
+    </div>
+  );
+};
+
+export default Dashboard;
