@@ -147,7 +147,7 @@ const Sidebar: FC<SidebarProps> = ({ open, onClose }) => {
           <div className={`border-t border-gray-800 my-3 ${isExpanded ? "mx-4" : "mx-2"}`}></div>
 
           <Link
-            to=""
+            to="/admin/tickets"
             onClick={onClose}
             className={`flex items-center ${
               isExpanded ? "gap-3 px-4" : "justify-center"

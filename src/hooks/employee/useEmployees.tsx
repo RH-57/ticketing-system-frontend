@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query"
+import { useQuery, keepPreviousData } from "@tanstack/react-query"
 import Api from "../../services/api"
 import Cookies from "js-cookie"
 
@@ -41,26 +41,35 @@ export interface PaginatedEmployeeResponse {
   meta: PaginationMeta
 }
 
-const useEmployees = (page: number, perPage: number = 10) => {
+// Tambahkan parameter 'search' ke dalam hook
+const useEmployees = (page: number = 1, perPage: number = 10, search: string = "") => {
   return useQuery<PaginatedEmployeeResponse, Error>({
-    queryKey: ["employees", page, perPage],
+    // Tambahkan 'search' ke queryKey agar React Query fetch ulang saat user mengetik
+    queryKey: ["employees", page, perPage, search],
 
     queryFn: async () => {
       const token = Cookies.get("token")
 
-      const response = await Api.get(
-        `/api/employees?page=${page}&per_page=${perPage}`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      )
+      const response = await Api.get("/api/employees", {
+        params: {
+          page: page,
+          per_page: perPage,
+          search: search, // Mengirim query string ?search=... ke backend
+        },
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      })
 
       return response.data
     },
 
-    placeholderData: (previousData) => previousData,
+    // placeholderData diganti menjadi keepPreviousData (syntax Tanstack Query v5)
+    // Ini berguna agar UI tidak "flicker" saat berpindah halaman atau mencari
+    placeholderData: keepPreviousData, 
+    
+    // Opsional: Jika sedang di modal ticket, jangan fetch kalau modal belum terbuka
+    enabled: true, 
   })
 }
 
