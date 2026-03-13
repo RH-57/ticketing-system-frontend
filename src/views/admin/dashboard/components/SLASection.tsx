@@ -31,9 +31,9 @@ const SLASection: FC<SLASectionProps> = ({ value = 0, isLoading }) => {
           <div className="p-1.5 bg-yellow-600/10 rounded-lg text-yellow-600">
             <Gauge size={16} />
           </div>
-          <h3 className="text-sm font-bold text-white tracking-tight">System SLA</h3>
+          <h3 className="text-sm font-bold text-white tracking-tight">SLA</h3>
         </div>
-        <span className={`text-[9px] font-black px-1.5 py-0.5 rounded bg-gray-800 ${status.color}`}>
+        <span className={`text-[12px] font-black px-1.5 py-0.5 rounded bg-gray-800 ${status.color}`}>
           {status.label}
         </span>
       </div>
@@ -44,10 +44,10 @@ const SLASection: FC<SLASectionProps> = ({ value = 0, isLoading }) => {
             <Loader2 className="w-6 h-6 animate-spin text-gray-700" />
           </div>
         ) : (
-          <div className="relative w-40 h-24 overflow-hidden flex justify-center">
+          <div className="relative w-64 h-36 overflow-hidden flex justify-center">
             {/* SVG Speedometer */}
             {/* Rotasi -180 agar titik 0 dimulai dari kiri bawah secara horizontal */}
-            <svg className="w-40 h-40 transform -rotate-180" viewBox="0 0 36 36">
+            <svg className="w-64 h-64 transform -rotate-180" viewBox="0 0 36 36">
               {/* Background Track */}
               <circle
                 cx="18"
@@ -76,7 +76,7 @@ const SLASection: FC<SLASectionProps> = ({ value = 0, isLoading }) => {
             {/* Logic: (percentage * 1.8) memetakan 0-100 ke 0-180 derajat. 
                 Dikurangi 90 agar jarum tegak lurus saat 50% */}
             <div 
-              className="absolute bottom-0 w-1 h-12 bg-gradient-to-t from-yellow-600 to-transparent origin-bottom transition-transform duration-1000 ease-out shadow-[0_0_10px_rgba(202,138,4,0.5)]"
+              className="absolute bottom-0 w-1 h-20 bg-gradient-to-t from-yellow-600 to-transparent origin-bottom transition-transform duration-1000 ease-out shadow-[0_0_10px_rgba(202,138,4,0.5)]"
               style={{ 
                 transform: `rotate(${(percentage * 1.8) - 90}deg)`,
                 left: 'calc(50% - 2px)'
@@ -85,7 +85,7 @@ const SLASection: FC<SLASectionProps> = ({ value = 0, isLoading }) => {
 
             {/* Angka Persentase */}
             <div className="absolute bottom-0 flex flex-col items-center">
-              <span className="text-2xl font-black text-white leading-none">{percentage}%</span>
+              <span className="text-4xl font-black text-white leading-none">{percentage}%</span>
               <span className="text-[10px] text-gray-500 font-bold uppercase tracking-widest mt-1">Efficiency</span>
             </div>
           </div>

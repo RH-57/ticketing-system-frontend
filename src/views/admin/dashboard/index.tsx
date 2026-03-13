@@ -3,7 +3,7 @@ import { useAuthUser } from "../../../hooks/auth/useAuthUser";
 import useDashboardStats from "../../../hooks/dashboard/useDashboardStats";
 import useTickets from "../../../hooks/ticket/useTicket";
 import StatsSection from "./components/StatsSection";
-import TaskSection from "./components/TaskSection"; // Import komponen baru
+import TaskSection from "./components/TaskSection";
 import SLASection from "./components/SLASection";
 import TicketChart from "./components/TicketChart";
 
@@ -26,27 +26,36 @@ const Dashboard: FC = () => {
         </p>
       </div>
 
-      {/* Main Content Grid */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-2">
-        {/* Left Column: Statistics */}
-        <div className="lg:col-span-1 space-y-2 items-start"> 
-            <section>
-                <StatsSection stats={stats} isLoading={statsLoading} />
-            </section>
-            
-            <section>
-              <TaskSection tickets={tickets} isLoading={ticketsLoading} />
-            </section>
-        </div>
+      {/* Main Content Layout */}
+      <div className="space-y-2">
+        
+        {/* BARIS 1: Stats & Chart Bersebelahan */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-2">
 
-        <div className="lg:col-span-1">
-          <SLASection value={stats?.sla} isLoading={statsLoading} />
-        </div>
+          {/* LEFT COLUMN */}
+          <div className="flex flex-col gap-2">
 
-        {/* Right Column: Chart */}
-        <div className="lg:col-span-2 space-y-2 items-start">
+            <StatsSection stats={stats} isLoading={statsLoading} />
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+              <div className="h-[248px]">
+                <TaskSection tickets={tickets} isLoading={ticketsLoading} />
+              </div>
+
+              <div className="h-[248px]">
+                <SLASection value={stats?.sla} isLoading={statsLoading} />
+              </div>
+            </div>
+
+          </div>
+
+          {/* RIGHT COLUMN */}
+          <div className="h-full">
             <TicketChart data={stats?.monthly_trend} isLoading={statsLoading} />
+          </div>
+
         </div>
+
       </div>
 
       {isError && (

@@ -18,9 +18,20 @@ export interface TicketDetail {
         id: number;
         email: string;
     };
-    branch: string;
-    division: string;
-    department: string;
+    // Ubah dari string menjadi object seperti ini:
+    branch: {
+        id: number;
+        name: string;
+        code?: string;
+    };
+    division: {
+        id: number;
+        name: string;
+    };
+    department: {
+        id: number;
+        name: string;
+    };
     created_at: string;
 }
 
